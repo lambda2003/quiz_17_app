@@ -113,6 +113,7 @@ class _AddItemState extends State<AddItem> {
       // Do something
       Item item = Item(name: _controller.text.trim(), imagePath: _imagePath);
       Get.defaultDialog(
+        barrierDismissible: false,
         title: '',
         content: SizedBox(height: 100, child: Text(
           '아이템을 추가 하시겠습니까? \n'
@@ -139,7 +140,7 @@ class _AddItemState extends State<AddItem> {
       );
     } else {
       // Error alert messge
-      Get.snackbar('', '목적을 넣어 주세요.');
+      Get.snackbar('Info', '목적을 넣어 주세요.');
     }
   }
 }
