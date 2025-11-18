@@ -12,12 +12,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // Property
   late List<Item> list;
+  late List<Item> defaultList;
   bool _isWorking = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     list = [];
+    defaultList = [];
     _addItem();
   }
 
@@ -25,6 +27,10 @@ class _HomeState extends State<Home> {
     list.add(Item(name: '쇼핑', imagePath: 'cart.png'));
     list.add(Item(name: '약속', imagePath: 'clock.png'));
     list.add(Item(name: '공부', imagePath: 'pencil.png'));
+    
+    defaultList.add(Item(name: '쇼핑', imagePath: 'cart.png'));
+    defaultList.add(Item(name: '약속', imagePath: 'clock.png'));
+    defaultList.add(Item(name: '공부', imagePath: 'pencil.png'));
   }
 
   @override
@@ -40,7 +46,7 @@ class _HomeState extends State<Home> {
         actions: [
           IconButton(
             onPressed: () async {
-              var result = await Get.toNamed('/add', arguments: {"list": list});
+              var result = await Get.toNamed('/add', arguments: {"list": defaultList});
               if (result != null) {
                 list.add(result);
                 setState(() {});
