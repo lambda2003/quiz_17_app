@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // Property
   late List<Item> list;
-
+  bool _isWorking = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -62,25 +62,42 @@ class _HomeState extends State<Home> {
               child: ListView.builder(
                 itemCount: list.length,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Get.toNamed('/detail', arguments: {"item": list[index]});
-                    },
+                  return  Dismissible(
+                      key: ValueKey(list[index]),
+                      direction: DismissDirection.endToStart,
+                      onDismissed: (direction){
+                        list.remove(list[index]);
+                        setState(() {});
+                      },
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        child: Icon(Icons.delete_forever),
+                        color: Colors.red[300],
+                      ),
+
                     child: Container(
                       height: 80,
-                      child: Card(
-                        key: ValueKey(list[index]),
-                        child: Row(
-                          spacing: 10,
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundImage: AssetImage(
-                                'images/${list[index].imagePath}',
+                      child:
+                           GestureDetector(
+                    onTap: () {
+                      if(!_isWorking)
+                        Get.toNamed('/detail', arguments: {"item": list[index]});
+                    },
+
+                        child: Card(
+                          key: ValueKey(list[index]),
+                          child: Row(
+                            spacing: 10,
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundImage: AssetImage(
+                                  'images/${list[index].imagePath}',
+                                ),
                               ),
-                            ),
-                            Text(list[index].name),
-                          ],
+                              Text(list[index].name),
+                            ],
+                          ),
                         ),
                       ),
                     ),
