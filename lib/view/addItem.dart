@@ -12,7 +12,8 @@ class AddItem extends StatefulWidget {
 
 class _AddItemState extends State<AddItem> {
   late TextEditingController _controller;
-  var args = Get.arguments ?? null;
+  // Null Handling
+  var args = Get.arguments ?? {'list':[Item(name:'쇼핑',imagePath:'cart.png')]};
 
   // late Item item;
   late String _imagePath;
@@ -22,9 +23,7 @@ class _AddItemState extends State<AddItem> {
     // TODO: implement initState
     super.initState();
     _controller = TextEditingController();
-    // item = args["list"][0];
-
-    _imagePath = 'cart.png'; //args['list'][0].imagePath
+    _imagePath = args['list'][0].imagePath;
   }
 
   @override
@@ -35,7 +34,7 @@ class _AddItemState extends State<AddItem> {
 
   @override
   Widget build(BuildContext context) {
-    print(args['list'].toString());
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Add View'),
